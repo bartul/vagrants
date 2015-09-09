@@ -16,6 +16,7 @@ Vagrant.configure(2) do |config|
   # config.vm.box = "ubuntu/trusty64" or "parallels/ubuntu-14.04"
   config.vm.box = "puphpet/ubuntu1404-x64"
   config.vm.provision :shell, path: "bootstrap.sh"
+  config.vm.network  :forwarded_port, guest:80, host:4567
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs

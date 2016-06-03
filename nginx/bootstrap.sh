@@ -12,6 +12,12 @@ apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C300EE8C
 apt-get update 
 apt-get install -y nginx
 
-echo #Copying nginx config for web site
-sudo cp /vagrant/provisioning/nginx-config/default /etc/nginx/sites-enabled/default
+echo #Install essentials
+apt-get install -y curl
+apt-get install -y vim
 
+echo #Copying nginx config for web site
+sudo cp /vagrant/nginx-config/default /etc/nginx/sites-enabled/default
+
+echo #Relaod nginx config
+sudo nginx -s reload 

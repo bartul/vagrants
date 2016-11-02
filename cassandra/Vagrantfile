@@ -1,0 +1,41 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+Vagrant.require_version ">= 1.1.0"
+
+CFG_MEMSIZE = "3000"      # max memory for each VM
+
+Vagrant.configure(2) do |config|
+  config.vm.define :cassandra do |x|
+    
+    x.vm.hostname = "my-cassandra"
+    x.vm.box = "ubuntu/trusty64"
+
+    x.vm.network "forwarded_port", guest: 9042, host: 9042 # CQL native transport port 
+    x.vm.network "forwarded_port", guest: 7199, host: 7199 # JMX
+
+
+    x.vm.provider "vmware_fusion" do |v|
+      v.vmx["memsize"] = CFG_MEMSIZE
+    end
+    
+    x.vm.provider :parallels do |p, override|
+      override.vm.box = "parallels/ubuntu-14.04"
+      p.name = "my-cassandra"
+      p.memory = CFG_MEMSIZE
+      p.cpus = 2
+      p.check_guest_tools = false
+      p.functional_psf    = false
+    end
+    
+    x.vm.provider :virtualbox do |v|
+      v.name = "my-cassandra"
+      v.customize ["modifyvm", :id, "--memory", CFG_MEMSIZE]
+      v.customize ["modifyvm", :id, "--cpus", "2"]
+    end
+ 
+    x.vm.provision "shell" do |s|
+      s.path = "install-cassandra.sh"
+    end
+
+  end
+end

@@ -22,15 +22,5 @@ curl https://www.apache.org/dist/cassandra/KEYS | sudo apt-key add -
 sudo apt-get update
 sudo apt-get install cassandra -y --force-yes -o Dpkg::Options::="--force-confnew"
 
-# sudo wget http://www-us.apache.org/dist/cassandra/3.9/apache-cassandra-3.9-bin.tar.gz
-# tar -xvf apache-cassandra-3.9-bin.tar.gz apache-cassandra-3.9
-# cd apache-cassandra-3.9
-# sudo mkdir /var/lib/cassandra
-# sudo mkdir /var/log/cassandra
-# sudo chown -R $USER:$GROUP /var/lib/cassandra
-# sudo chown -R $USER:$GROUP /var/log/cassandra
-
-echo  -e '\e[0;32mStarting cassandra'
-
-# bin/cassandra -R
+echo  -e '\e[0;32mInstaling cassandra done'
 
